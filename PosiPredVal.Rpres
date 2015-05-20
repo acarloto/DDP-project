@@ -1,0 +1,56 @@
+Disease Probability Given a Positive Diagnostic Test
+========================================================
+author: acarloto
+date: 20/05/2015
+
+http://acarloto.shinyapps.io/PosiPredVal/
+
+
+
+You Tested Positive
+========================================================
+
+<p style="text-align:justify"> Imagine that you make a diagnostic test for disease X. Imagine that the result is positive. For making the situation worst, you are told that the specificity of the test is 95% and that his sensitivity is 98%. Big numbers, no? So, you almost certainly got the disease, right? Wrong. </p>
+
+***
+```{r, echo = FALSE}
+diseaseProb <- function(baseRate, sensitivity, specificity) {
+      # Baye's formula
+      P <- 100 * ((sensitivity * baseRate) /((sensitivity * baseRate) + 
+                                          ((100 - specificity) * (100 - baseRate))))
+}
+baseRate <- c(1:100)
+plot(baseRate, diseaseProb(baseRate, 95, 98), title(main = "POSITIVE PREDICTIVE VALUE (PPV) X PREVALENCE", sub = "(sensitivity = 98%, specificity = 95%)"), xlab = "PREVALENCE (BASE RATE OF DISEASE X)", ylab = "PROBABILITY OF DISEASE GIVEN A POSITIVE TEST")
+```
+
+
+Your Doctor Knows Best
+========================================================
+
+After doing some mathematical calculations, he tells you that the real probability of having the disease is just 17%. How can this be? 
+
+The answer is that the doctor took in consideration the prevalence of that health condition in the population group where you belong (by sex, age, country, etc.), which in this case is 1%. 
+
+Big percentages (specificity and sensitivity) applied to a very small percentage (prevalence) still give a small percentage - your positive predictive value, or PPV.
+
+
+Life is Easier With Bayes 
+========================================================
+
+The formula that the doctor used was:
+
+![alt text](./PosiPredVal-figure/formula.png)
+
+This formula is the application of the Bayes theorem to this specific problem. 
+
+The Bayes theorem depends heavily on the base rate or prior of the variable that is being studied. 
+
+In this case the prior is the prevalence of the disease, or, if you repeat the test, the PPV of the first test. If the second diagnostic test also results positive, the updated PPV will increase to 80% and you should get much more worried.
+
+Now, in Your Hands:
+========================================================
+
+http://acarloto.shinyapps.io/PosiPredVal/
+
+
+![alt text](./PosiPredVal-figure/snapshot.png)
